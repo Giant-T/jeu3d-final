@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(LineRenderer))]
+public class LineColor : MonoBehaviour
+{
+    public float maxLenght;
+    public Color minColor;
+    public Color maxColor;
+
+    private LineRenderer lineRenderer;
+
+    // Update is called once per frame
+    void Update()
+    {
+        float length = CalculateLineLength();
+    }
+
+    private float CalculateLineLength()
+    {
+        float length = Vector3.Distance(lineRenderer.GetPosition(0), lineRenderer.GetPosition(1));
+
+        return length;
+    }
+
+    private float ChangeLineColor(float length)
+    {
+
+    }
+}
