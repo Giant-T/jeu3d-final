@@ -5,15 +5,61 @@ using UnityEngine;
 
 public class GolfBall : MonoBehaviour
 {
+    public Rigidbody body;
     public LineRenderer lineRenderer;
+    public float power;
+    public float stoppingMargin;
+    public event Action AddShot;
 
     private Vector3 lineEndPos = Vector3.zero;
+    private bool canPutt = true;
+
+    private void FixedUpdate()
+    {
+        if (body.velocity.magnitude < stoppingMargin)
+        {
+            Stop();
+        }
+        else
+        {
+            canPutt = false;
+        }
+    }
 
     private void OnMouseDrag()
     {
-        GetMousePosition();
+        if (canPutt)
+        {
+            GetMousePosition();
 
-        DrawLine();
+            DrawLine();
+        }
+    }
+
+    private void OnMouseUp()
+    {
+        if (canPutt)
+        {
+            Putt();
+            
+            lineRenderer.enabled = false;
+        }
+    }
+
+    private void Stop()
+    {
+        body.velocity = Vector3.zero;
+        body.angularVelocity = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        canPutt = true;
+    }
+
+    private void Putt()
+    {
+        body.AddForce(lineEndPos * power, ForceMode.Impulse);
+
+        AddShot.Invoke();
+        canPutt = false;
     }
 
     private void DrawLine()
@@ -35,9 +81,7 @@ public class GolfBall : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("GolfLine")))
         {
-            lineEndPos = new Vector3(-hit.point.x, 0, -hit.point.z);
+            lineEndPos = new Vector3(transform.position.x - hit.point.x, 0, transform.position.z - hit.point.z);
         }
     }
-
-
 }
