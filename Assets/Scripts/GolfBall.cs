@@ -2,14 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Rigidbody))]
 public class GolfBall : MonoBehaviour
 {
-    public Rigidbody body;
     public LineRenderer lineRenderer;
     public float power;
     public float stoppingMargin;
+    public float heightLimit;
+    private Rigidbody body;
     public event Action AddShot;
+
+    private void Start()
+    {
+        body = GetComponent<Rigidbody>();
+    }
 
     private Vector3 lineEndPos = Vector3.zero;
     private bool canPutt = true;
@@ -22,6 +30,11 @@ public class GolfBall : MonoBehaviour
         }
         else
         {
+            if (transform.position.y < heightLimit)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+
             canPutt = false;
         }
     }
@@ -41,7 +54,7 @@ public class GolfBall : MonoBehaviour
         if (canPutt)
         {
             Putt();
-            
+
             lineRenderer.enabled = false;
         }
     }
