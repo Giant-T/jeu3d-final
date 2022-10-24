@@ -13,14 +13,18 @@ public class GolfBall : MonoBehaviour
     public float heightLimit;
     private Rigidbody body;
     public event Action AddShot;
+    private Vector3 lineEndPos = Vector3.zero;
+    private bool canPutt = true;
+
+    public void EndHole()
+    {
+        Stop();
+    }
 
     private void Start()
     {
         body = GetComponent<Rigidbody>();
     }
-
-    private Vector3 lineEndPos = Vector3.zero;
-    private bool canPutt = true;
 
     private void FixedUpdate()
     {

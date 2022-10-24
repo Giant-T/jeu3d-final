@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
+    public GameObject nextStart;
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("A ouais");
+            if (!nextStart)
+            {
+                return;
+            }
+            GolfBall ball = other.gameObject.GetComponent<GolfBall>();
+            
+            Vector3 nextStartPos = nextStart.transform.position;
+            nextStartPos.y += 0.2f;
+            ball.EndHole();
+            ball.transform.position = nextStartPos;
         }
     }
 }
