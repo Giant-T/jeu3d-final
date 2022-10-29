@@ -9,11 +9,13 @@ using UnityEngine.SceneManagement;
 public class GolfBall : MonoBehaviour
 {
     public LineRenderer lineRenderer;
-    public float power;
-    public float maxStrength;
-    public float strengthCoefficient = 1.0f;
     public float stoppingMargin;
     public float heightLimit;
+
+    [Header("Strength")]
+    public float power;
+    public float maxStrength;
+    public float strengthCoefficient = 1;
 
     private Rigidbody body;
     private AudioSource audioSource;
@@ -101,9 +103,9 @@ public class GolfBall : MonoBehaviour
         // Reduit le scale du vecteur pour pas qu'il soit completement enorme
         mousePosDiff.y /= Camera.main.pixelHeight;
         mousePosDiff.x /= Camera.main.pixelHeight;
-        mousePosDiff *= strengthCoefficient;
 
         lineEndPos = new Vector3(mousePosDiff.x, 0, mousePosDiff.y);
-        lineEndPos = lineEndPos.normalized * Mathf.Clamp(lineEndPos.magnitude, 0, maxStrength);
+        float magnitude = lineEndPos.magnitude * strengthCoefficient;
+        lineEndPos = lineEndPos.normalized * Mathf.Clamp(magnitude, 0, maxStrength);
     }
 }
