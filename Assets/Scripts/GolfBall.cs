@@ -19,7 +19,6 @@ public class GolfBall : MonoBehaviour
     private AudioSource audioSource;
     public event Action AddShot;
     private Vector3 lineEndPos = Vector3.zero;
-    private Vector3 startMousePos = Vector3.zero;
     private bool canPutt = true;
 
     private void Start()
@@ -52,14 +51,6 @@ public class GolfBall : MonoBehaviour
 
         ConvertMousePos();
         DrawLine();
-    }
-
-    private void OnMouseDown()
-    {
-        if (!canPutt)
-            return;
-
-        startMousePos = Input.mousePosition;
     }
 
     private void OnMouseUp()
@@ -105,7 +96,7 @@ public class GolfBall : MonoBehaviour
     private void ConvertMousePos()
     {
         Vector3 newMousePos = Input.mousePosition;
-        Vector3 mousePosDiff = newMousePos - startMousePos;
+        Vector3 mousePosDiff = newMousePos - Camera.main.WorldToScreenPoint(transform.position);
 
         // Reduit le scale du vecteur pour pas qu'il soit completement enorme
         mousePosDiff.y /= Camera.main.pixelHeight;
