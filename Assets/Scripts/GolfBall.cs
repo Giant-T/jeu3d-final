@@ -16,11 +16,6 @@ public class GolfBall : MonoBehaviour
     private Vector3 lineEndPos = Vector3.zero;
     private bool canPutt = true;
 
-    public void EndHole()
-    {
-        Stop();
-    }
-
     private void Start()
     {
         body = GetComponent<Rigidbody>();
@@ -63,7 +58,7 @@ public class GolfBall : MonoBehaviour
         }
     }
 
-    private void Stop()
+    public void Stop()
     {
         body.velocity = Vector3.zero;
         body.angularVelocity = Vector3.zero;
