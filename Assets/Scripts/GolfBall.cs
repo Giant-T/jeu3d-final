@@ -9,11 +9,15 @@ public class GolfBall : MonoBehaviour
 {
     public LineRenderer lineRenderer;
     public float power;
+    public float maxStrength;
+    public float strengthCoefficient = 1.0f;
     public float stoppingMargin;
     public float heightLimit;
+
     private Rigidbody body;
     public event Action AddShot;
     private Vector3 lineEndPos = Vector3.zero;
+    private Vector3 startMousePos = Vector3.zero;
     private bool canPutt = true;
 
     private void Start()
@@ -40,12 +44,19 @@ public class GolfBall : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (canPutt)
-        {
-            GetMousePosition();
+        if (!canPutt)
+            return;
 
-            DrawLine();
-        }
+        ConvertMousePos();
+        DrawLine();
+    }
+
+    private void OnMouseDown()
+    {
+        if (!canPutt)
+            return;
+
+        startMousePos = Input.mousePosition;
     }
 
     private void OnMouseUp()
@@ -86,14 +97,17 @@ public class GolfBall : MonoBehaviour
         lineRenderer.enabled = true;
     }
 
-    private void GetMousePosition()
+    private void ConvertMousePos()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        Vector3 newMousePos = Input.mousePosition;
+        Vector3 mousePosDiff = newMousePos - startMousePos;
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("GolfLine")))
-        {
-            lineEndPos = new Vector3(transform.position.x - hit.point.x, 0, transform.position.z - hit.point.z);
-        }
+        // Reduit le scale du vecteur pour pas qu'il soit completement enorme
+        mousePosDiff.y /= Camera.main.pixelHeight;
+        mousePosDiff.x /= Camera.main.pixelHeight;
+        mousePosDiff *= strengthCoefficient;
+
+        lineEndPos = new Vector3(mousePosDiff.x, 0, mousePosDiff.y);
+        lineEndPos = lineEndPos.normalized * Mathf.Clamp(lineEndPos.magnitude, 0, maxStrength);
     }
 }

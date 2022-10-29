@@ -21,7 +21,15 @@ public class Goal : MonoBehaviour
             }
 
             GolfBall ball = other.gameObject.GetComponent<GolfBall>();
-            StartCoroutine(EndLevel(ball));
+            StartCoroutine("EndLevel", ball);
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.gameObject.CompareTag("Player") && ballHasEntered)
+        {
+            ballHasEntered = false;
+            StopCoroutine("EndLevel");
         }
     }
 
