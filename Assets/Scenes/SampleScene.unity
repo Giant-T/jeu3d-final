@@ -2821,11 +2821,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3469287838163221903, guid: f69bacc4549fd1c4185dff3f68aa9ec5, type: 3}
       propertyPath: maxStrength
-      value: 1
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 3469287838163221903, guid: f69bacc4549fd1c4185dff3f68aa9ec5, type: 3}
       propertyPath: stoppingMargin
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469287838163221903, guid: f69bacc4549fd1c4185dff3f68aa9ec5, type: 3}
+      propertyPath: strenghtCoefficient
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3469287838163221903, guid: f69bacc4549fd1c4185dff3f68aa9ec5, type: 3}
       propertyPath: strengthCoefficient
