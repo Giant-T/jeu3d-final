@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))]
 public class GolfBall : MonoBehaviour
 {
     public LineRenderer lineRenderer;
@@ -15,6 +16,7 @@ public class GolfBall : MonoBehaviour
     public float heightLimit;
 
     private Rigidbody body;
+    private AudioSource audio;
     public event Action AddShot;
     private Vector3 lineEndPos = Vector3.zero;
     private Vector3 startMousePos = Vector3.zero;
@@ -23,6 +25,7 @@ public class GolfBall : MonoBehaviour
     private void Start()
     {
         body = GetComponent<Rigidbody>();
+        audio = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -79,6 +82,8 @@ public class GolfBall : MonoBehaviour
 
     private void Putt()
     {
+        audio.Play();
+
         body.AddForce(lineEndPos * power, ForceMode.Impulse);
 
         AddShot.Invoke();
