@@ -16,7 +16,7 @@ public class GolfBall : MonoBehaviour
     public float heightLimit;
 
     private Rigidbody body;
-    private AudioSource audio;
+    private AudioSource audioSource;
     public event Action AddShot;
     private Vector3 lineEndPos = Vector3.zero;
     private Vector3 startMousePos = Vector3.zero;
@@ -25,7 +25,7 @@ public class GolfBall : MonoBehaviour
     private void Start()
     {
         body = GetComponent<Rigidbody>();
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -82,7 +82,7 @@ public class GolfBall : MonoBehaviour
 
     private void Putt()
     {
-        audio.Play();
+        audioSource.Play();
 
         body.AddForce(lineEndPos * power, ForceMode.Impulse);
 
