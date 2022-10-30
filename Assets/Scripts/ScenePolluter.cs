@@ -29,7 +29,7 @@ public class ScenePolluter : MonoBehaviour
 
         MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
         meshRenderer.materials = materials;
-
+        
         return gameObject;
     }
 
@@ -41,6 +41,7 @@ public class ScenePolluter : MonoBehaviour
         {
             gameObjects[i] = GenerateBaseObject(i);
             RandomizePollution(gameObjects[i]);
+            gameObjects[i].transform.parent = transform;
         }
     }
 
