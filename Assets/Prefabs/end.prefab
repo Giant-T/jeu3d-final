@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 6696730987654506076}
   - component: {fileID: 8866292526713115286}
   m_Layer: 0
-  m_Name: trouGolf
+  m_Name: end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

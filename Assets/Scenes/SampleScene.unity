@@ -204,6 +204,61 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2345237962244854009, guid: fc1603992d7fdd24e97f3b968e2419db, type: 3}
+--- !u!1 &132588925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 132588927}
+  - component: {fileID: 132588926}
+  m_Layer: 0
+  m_Name: ScenePolluter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &132588926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132588925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a86387d4dcb57fc41a643dd19a44bc84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfObjects: 10
+  model: {fileID: -2676547712749244357, guid: b14e596384b6bc340b5ec593da5d3030, type: 3}
+  materials:
+  - {fileID: 4310586713465477566, guid: b14e596384b6bc340b5ec593da5d3030, type: 3}
+  - {fileID: -4523872500402983279, guid: b14e596384b6bc340b5ec593da5d3030, type: 3}
+  - {fileID: 1151844921754575795, guid: b14e596384b6bc340b5ec593da5d3030, type: 3}
+  - {fileID: -5354028657143720620, guid: b14e596384b6bc340b5ec593da5d3030, type: 3}
+  - {fileID: 4156002973242278026, guid: b14e596384b6bc340b5ec593da5d3030, type: 3}
+  yOffset: 3
+  lowerLimit: {x: -16, y: 0, z: -9}
+  upperLimit: {x: 1, y: 0, z: 1}
+--- !u!4 &132588927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132588925}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &148497068
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1140,7 +1195,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 0.91076183, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
