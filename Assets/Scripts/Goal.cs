@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class Goal : MonoBehaviour
 {
     public GameObject nextStart;
+
+    public event Action FinishGame;
     private const float yOffset = 0.1f;
     private const float endTime = 2.5f;
     private bool ballHasEntered = false;
@@ -15,17 +18,14 @@ public class Goal : MonoBehaviour
         {
             ballHasEntered = true;
 
-            if (!nextStart)
-            {
-                return;
-            }
 
             GolfBall ball = other.gameObject.GetComponent<GolfBall>();
             StartCoroutine("EndLevel", ball);
         }
     }
 
-    private void OnTriggerExit(Collider other) {
+    private void OnTriggerExit(Collider other)
+    {
         if (other.gameObject.CompareTag("Player") && ballHasEntered)
         {
             ballHasEntered = false;
@@ -37,9 +37,16 @@ public class Goal : MonoBehaviour
     {
         yield return new WaitForSeconds(endTime);
 
-        Vector3 nextStartPos = nextStart.transform.position;
-        nextStartPos.y += yOffset;
-        ball.Stop();
-        ball.transform.position = nextStartPos;
+        if (!nextStart)
+        {
+            FinishGame.Invoke();
+        }
+        else
+        {
+            Vector3 nextStartPos = nextStart.transform.position;
+            nextStartPos.y += yOffset;
+            ball.Stop();
+            ball.transform.position = nextStartPos;
+        }
     }
 }

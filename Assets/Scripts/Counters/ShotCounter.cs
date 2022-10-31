@@ -4,20 +4,16 @@ using UnityEngine;
 using TMPro;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
-public class ShotCounter : MonoBehaviour
+public class ShotCounter : Counter
 {
     public GolfBall golfBall;
-        
-    private TextMeshProUGUI textMesh;
-    private int count;
 
-    // Start is called before the first frame update
     void Start()
     {
-        textMesh = GetComponent<TextMeshProUGUI>();
-        RefreshCounter();
+        textMeshPro = GetComponent<TextMeshProUGUI>();
 
         golfBall.AddShot += AddCounter;
+        RefreshCounter();
     }
 
     private void OnDestroy()
@@ -25,14 +21,9 @@ public class ShotCounter : MonoBehaviour
         golfBall.AddShot -= AddCounter;
     }
 
-    private void AddCounter()
+    protected override void AddCounter()
     {
         count++;
         RefreshCounter();
-    }
-
-    private void RefreshCounter()
-    {
-        textMesh.text = count.ToString();
     }
 }
