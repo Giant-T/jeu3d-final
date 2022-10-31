@@ -22,6 +22,7 @@ public class GolfBall : MonoBehaviour
     public event Action AddShot;
     private Vector3 lineEndPos = Vector3.zero;
     private bool canPutt = true;
+    private Vector3 lastPos;
 
     private void Start()
     {
@@ -39,9 +40,11 @@ public class GolfBall : MonoBehaviour
         {
             if (transform.position.y < heightLimit)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                transform.position = lastPos;
+                Stop();
             }
 
+            lineRenderer.enabled = false;
             canPutt = false;
         }
     }
@@ -57,12 +60,10 @@ public class GolfBall : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (canPutt)
-        {
-            Putt();
+        if (!canPutt)
+            return;
 
-            lineRenderer.enabled = false;
-        }
+        Putt();
     }
 
     public void Stop()
@@ -81,6 +82,7 @@ public class GolfBall : MonoBehaviour
 
         AddShot.Invoke();
         canPutt = false;
+        lastPos = transform.position;
     }
 
     private void DrawLine()
